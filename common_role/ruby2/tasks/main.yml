@@ -12,7 +12,7 @@
        - bzip2
 
    - name: rbenv is installed or not
-     shell: /usr/local/bin/rbenv version
+     shell: /usr/local/bin/rbenv/bin/rbenv version
      register: has_rbenv
      ignore_errors: True
 
@@ -41,9 +41,9 @@
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4
-     shell: /usr/local/bin/rbenv install 2.2.4
+     shell: /usr/local/bin/rbenv/bin/rbenv install 2.2.4
      when: has_rbenv|failed
 
    - name: Set default versin as 2.2.4
-     shell: /usr/local/bin/rbenv global 2.2.4
+     shell: /usr/local/bin/rbenv/bin/rbenv global 2.2.4
      when: has_rbenv|failed

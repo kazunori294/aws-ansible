@@ -32,8 +32,12 @@
      shell: echo 'eval "$(rbenv init --no-rehash -)"'  >> /etc/profile
      when: has_rbenv|failed
 
-   - name: source /etc/profile.d/rbenv.sh
+   - name: source /etc/profile
      shell: source /etc/profile
+     when: has_rbenv|failed
+
+   - name: install ruby-build
+     shell: /usr/local/bin/rbenv/plugins/ruby-build/install.sh
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4

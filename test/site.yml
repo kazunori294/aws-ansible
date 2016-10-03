@@ -4,3 +4,4 @@
   roles:
     - /aws-ansible/common_role/httpd
     - /aws-ansible/common_role/ruby
+    - /aws-ansible/common_role/rails

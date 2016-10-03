@@ -1,0 +1,9 @@
+---
+   - name: mkdir for rails
+     shell: mkdir /rails
+     register: has_rails
+     ignore_errors: True
+
+   - name: Install Rails
+     shell: gem install rails --no-ri --no-rdoc
+     when: has_rails|failed

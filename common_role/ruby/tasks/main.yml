@@ -25,15 +25,15 @@
      when: has_rbenv|failed
 
    - name: export PATH
-     shell: echo 'export PATH="/usr/local/bin/rbenv/bin:${PATH}"'  >> /etc/profile.d/rbenv.sh
+     shell: echo 'export PATH="/usr/local/bin/rbenv/bin:${PATH}"'  >> /etc/profile
      when: has_rbenv|failed
 
    - name: rbenv init --no-rehash
-     shell: echo 'eval "$(rbenv init --no-rehash -)"'  >> /etc/profile.d/rbenv.sh
+     shell: echo 'eval "$(rbenv init --no-rehash -)"'  >> /etc/profile
      when: has_rbenv|failed
 
    - name: source /etc/profile.d/rbenv.sh
-     shell: source /etc/profile.d/rbenv.sh
+     shell: source /etc/profile
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4

@@ -1,0 +1,10 @@
+---
+   - name: Install general-tools
+     yum: name={{item}}  state=present
+     with_items:
+       - sysstat
+       - bind-utils
+       - net-snmp-utils
+
+   - name: disable addvmpooldb.sh
+     shell: sed -i -e 's/^sh/#sh/' /etc/rc.local

@@ -1,0 +1,6 @@
+---
+  - name: Set /etc/sysconfig/network-scripts/ifcfg-eth0
+    template: src=ifcfg-eth0.js dest=/etc/sysconfig/network-scripts/ifcfg-eth0 owner=root group=root mode=0644
+
+  - name: Restart network
+    service: name=network state=restarted

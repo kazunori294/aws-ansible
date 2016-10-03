@@ -1,0 +1,21 @@
+---
+   - name: yum_install_packages
+     yum: name={{item}}  state=present
+     with_items:
+      - authconfig
+      - openldap-clients
+      - nss-pam-ldapd
+
+   - name: add_ldap_kazunori_51S
+     shell: authconfig --enableldap --enableldapauth --ldapserver="ldap://10.1.0.52/" --ldapbasedn="dc=example,dc=com" --enablemkhomedir --update
+
+   - name: chkconfig on
+     service: name=nslcd enabled=yes
+
+   - name: add kazunori as sudo user
+     copy: >
+         src=kazunori
+         dest=/etc/sudoers.d/kazunori
+         owner=root
+         group=root
+         mode=0644

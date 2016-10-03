@@ -1,0 +1,3 @@
+---
+zabbix_server: 10.1.0.2
+hostgroup: template

@@ -33,13 +33,13 @@
      when: has_rbenv|failed
 
    - name: source /etc/profile.d/rbenv.sh
-     shell: /etc/profile.d/rbenv.sh
+     shell: source /etc/profile.d/rbenv.sh
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4
-     shell: rbenv install 2.2.4
+     command: /usr/local/bin/rbenv/bin/rbenv install 2.2.4
      when: has_rbenv|failed
 
    - name: Set default versin as 2.2.4
-     shell: source /etc/profile.d/rbenv.sh && /usr/local/bin/rbenv/bin/rbenv global 2.2.4
+     command: /usr/local/bin/rbenv/bin/rbenv global 2.2.4
      when: has_rbenv|failed

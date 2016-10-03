@@ -3,3 +3,4 @@
   connection: local
   roles:
     - /aws-ansible/common_role/httpd
+    - /aws-ansible/common_role/ruby2

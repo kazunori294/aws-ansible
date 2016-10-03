@@ -24,12 +24,8 @@
      git: repo=https://github.com/sstephenson/ruby-build.git dest=/usr/local/bin/rbenv/plugins/ruby-build
      when: has_rbenv|failed
 
-   - name: export RBENV_ROOT
-     shell: echo 'export RBENV_ROOT="/usr/local/bin/rbenv"' >> /etc/profile.d/rbenv.sh
-     when: has_rbenv|failed
-
    - name: export PATH
-     shell: echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"'  >> /etc/profile.d/rbenv.sh
+     shell: echo 'export PATH="/usr/local/bin/rbenv/bin:${PATH}"'  >> /etc/profile.d/rbenv.sh
      when: has_rbenv|failed
 
    - name: rbenv init --no-rehash
@@ -41,7 +37,7 @@
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4
-     shell: source /etc/profile.d/rbenv.sh && /usr/local/bin/rbenv/bin/rbenv install 2.2.4
+     shell: /usr/local/bin/rbenv/bin/rbenv install 2.2.4
      when: has_rbenv|failed
 
    - name: Set default versin as 2.2.4

@@ -41,9 +41,9 @@
      when: has_rbenv|failed
 
    - name: Install ruby 2.2.4
-     shell: rbenv install 2.2.4
+     shell: /usr/local/bin/rbenv install 2.2.4
      when: has_rbenv|failed
 
    - name: Set default versin as 2.2.4
-     shell: rbenv global 2.2.4
+     shell: /usr/local/bin/rbenv global 2.2.4
      when: has_rbenv|failed

@@ -1,0 +1,49 @@
+---
+   - name: Install needed packages
+     yum: name={{item}}  state=present
+     with_items:
+       - git
+       - openssl-devel
+       - readline-devel
+       - zlib-devel
+       - gcc
+       - sqlite-devel
+       - gcc-c++
+       - bzip2
+
+   - name: rbenv is installed or not
+     shell: /usr/local/bin/rbenv version
+     register: has_rbenv
+     ignore_errors: True
+
+   - name: Download rbenv.git
+     git: repo=https://github.com/sstephenson/rbenv.git dest=/usr/local/bin/rbenv
+     when: has_rbenv|failed
+
+   - name: Download ruby-build.git
+     git: repo=https://github.com/sstephenson/ruby-build.git dest=/usr/local/bin/rbenv/plugins/ruby-build
+     when: has_rbenv|failed
+
+   - name: export RBENV_ROOT
+     shell: echo 'export RBENV_ROOT="/usr/local/bin/rbenv"' >> /etc/profile.d/rbenv.sh
+     when: has_rbenv|failed
+
+   - name: export PATH
+     shell: echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"'  >> /etc/profile.d/rbenv.sh
+     when: has_rbenv|failed
+
+   - name: rbenv init --no-rehash
+     shell: echo 'eval "$(rbenv init --no-rehash -)"'  >> /etc/profile.d/rbenv.sh
+     when: has_rbenv|failed
+
+   - name: source /etc/profile.d/rbenv.sh
+     shell: source /etc/profile.d/rbenv.sh
+     when: has_rbenv|failed
+
+   - name: Install ruby 2.2.4
+     shell: rbenv install 2.2.4
+     when: has_rbenv|failed
+
+   - name: Set default versin as 2.2.4
+     shell: rbenv global 2.2.4
+     when: has_rbenv|failed

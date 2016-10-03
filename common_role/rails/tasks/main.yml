@@ -1,6 +1,6 @@
 ---
    - name: mkdir for rails
-     shell: mkdir /rails
+     shell: mkdir /root/rails
      register: has_rails
      ignore_errors: True
 

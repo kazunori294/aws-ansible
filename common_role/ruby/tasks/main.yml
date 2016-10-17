@@ -12,38 +12,38 @@
        - bzip2
 
    - name: rbenv is installed or not
-     shell: /usr/local/bin/rbenv/bin/rbenv version
+     shell: /opt/rbenv/bin/rbenv version
      register: has_rbenv
      ignore_errors: True
 
    - name: Download rbenv.git
-     git: repo=https://github.com/sstephenson/rbenv.git dest=/usr/local/bin/rbenv
+     git: repo=https://github.com/sstephenson/rbenv.git dest=/opt/rbenv
      when: has_rbenv|failed
 
    - name: Download ruby-build.git
-     git: repo=https://github.com/sstephenson/ruby-build.git dest=/usr/local/bin/rbenv/plugins/ruby-build
+     git: repo=https://github.com/sstephenson/ruby-build.git dest=/opt/rbenv/plugins/ruby-build
      when: has_rbenv|failed
 
    - name: export PATH
-     shell: echo 'export PATH="/usr/local/bin/rbenv/bin:${PATH}"'  >> /etc/profile
+     shell: echo 'export RBENV_ROOT="/opt/rbenv"' >> /etc/profile
      when: has_rbenv|failed
 
-   - name: rbenv init --no-rehash
-     shell: echo 'eval "$(rbenv init --no-rehash -)"'  >> /etc/profile
+   - name: export PATH 2
+     shell: echo 'export PATH="${RBENV_ROOT}/bin:${PATH}"' >> /etc/profile
+     when: has_rbenv|failed
+     
+   - name: rbenv init
+     shell: 'eval "$(rbenv init -)"' >> /etc/profile
      when: has_rbenv|failed
 
    - name: source /etc/profile
      shell: source /etc/profile
      when: has_rbenv|failed
 
-   - name: install ruby-build
-     shell: /usr/local/bin/rbenv/plugins/ruby-build/install.sh
-     when: has_rbenv|failed
-
    - name: Install ruby 2.2.4
-     command: /usr/local/bin/rbenv/bin/rbenv install 2.2.4
+     command: /opt/rbenv/bin/rbenv install 2.2.4
      when: has_rbenv|failed
 
    - name: Set default versin as 2.2.4
-     command: /usr/local/bin/rbenv/bin/rbenv global 2.2.4
+     command: /opt/rbenv/bin/rbenv global 2.2.4
      when: has_rbenv|failed

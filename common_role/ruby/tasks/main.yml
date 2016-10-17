@@ -33,7 +33,7 @@
      when: has_rbenv|failed
      
    - name: rbenv init
-     shell: 'eval "$(rbenv init -)"' >> /etc/profile
+     shell: echo 'eval "$(rbenv init -)"' >> /etc/profile
      when: has_rbenv|failed
 
    - name: source /etc/profile
